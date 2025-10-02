@@ -5,7 +5,6 @@ on:
     tags:
       - 'v*'  # 只在推送 tag 时触发，例如 v1.0.0
   
-  # 允许手动在 GitHub Actions 页面上运行此工作流
   workflow_dispatch: 
 
 jobs:
@@ -20,21 +19,33 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17 # 使用 Java 17 运行 Gradle
+          java-version: 17
 
       - name: Make gradlew executable
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        # 即使使用 Java 17 运行，Gradle 也会根据 build.gradle 的配置使用 Java 8 编译 Mod
         run: ./gradlew build --no-daemon
 
+      # ==========================================================
+      # ⬇️ 【新增步骤】上传 Artifact (直接在 Actions 页面下载) ⬇️
+      # ==========================================================
+      - name: Upload Mod Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          # Artifact 的名称，您可以在 Actions 页面看到这个名字
+          name: mc-1.8.9-mod-jar
+          # 要上传的文件或目录
+          path: build/libs/*.jar
+          # 保留时间 (可选，默认 90 天)，这里设置为 5 天
+          retention-days: 5 
+      # ==========================================================
+      
       - name: Upload mod jar to Release
         # 仅在被 Tag 推送触发时才执行发布步骤
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          # 明确指定 tag_name 为触发工作流的 Git tag 名称，解决 "GitHub Releases requires a tag" 错误
           tag_name: ${{ github.ref_name }} 
           files: build/libs/*.jar
           name: "MC 1.8.9 Mod Release ${{ github.ref_name }}"
