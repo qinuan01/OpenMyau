@@ -1,6 +1,7 @@
 name: Build and Release MC 1.8.9 Mod
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'v*'  # 只在推送 tag 时触发，例如 v1.0.0
