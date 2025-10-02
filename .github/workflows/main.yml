@@ -1,10 +1,12 @@
 name: Build and Release MC 1.8.9 Mod
 
 on:
-  workflow_dispatch:
   push:
     tags:
       - 'v*'  # 只在推送 tag 时触发，例如 v1.0.0
+  
+  # 允许手动在 GitHub Actions 页面上运行此工作流
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -14,22 +16,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17 # ⬅️ 【关键修改】运行 Gradle 需要 Java 17+
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17 # ⬅️ 确保使用 Java 17 或更高版本
+          java-version: 17 # 使用 Java 17 运行 Gradle
 
       - name: Make gradlew executable
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        # ⚠️ 注意：Gradle 运行在 Java 17 上，但它会根据 build.gradle 的配置使用 Java 8 编译 Mod
+        # 即使使用 Java 17 运行，Gradle 也会根据 build.gradle 的配置使用 Java 8 编译 Mod
         run: ./gradlew build --no-daemon
 
       - name: Upload mod jar to Release
+        # 仅在被 Tag 推送触发时才执行发布步骤
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
+          # 明确指定 tag_name 为触发工作流的 Git tag 名称，解决 "GitHub Releases requires a tag" 错误
+          tag_name: ${{ github.ref_name }} 
           files: build/libs/*.jar
           name: "MC 1.8.9 Mod Release ${{ github.ref_name }}"
           body: "自动构建的 Minecraft 1.8.9 Mod JAR 文件"
