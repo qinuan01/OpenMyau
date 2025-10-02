@@ -1,14 +1,14 @@
 name: Build and Release MC 1.8.9 Mod
 
 on:
-  workflow_dispatch:   # 手动触发
+  workflow_dispatch:    # 手动触发
   push:
     tags:
-      - 'v*'  # 推送 tag 仍然自动触发
+      - 'v*'           # push tag 仍然自动触发
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest   # Windows runner
 
     steps:
       - name: Checkout code
@@ -20,11 +20,8 @@ jobs:
           distribution: temurin
           java-version: 8
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
-
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon
+        run: gradlew.bat build --no-daemon
 
       - name: Upload mod jar to Release
         uses: softprops/action-gh-release@v2
