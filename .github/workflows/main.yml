@@ -1,14 +1,14 @@
 name: Build and Release MC 1.8.9 Mod
 
 on:
-  workflow_dispatch:    # 手动触发
+  workflow_dispatch:
   push:
     tags:
-      - 'v*'           # push tag 仍然自动触发
+      - 'v*'
 
 jobs:
   build:
-    runs-on: windows-latest   # Windows runner
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -21,7 +21,7 @@ jobs:
           java-version: 8
 
       - name: Build with Gradle
-        run: gradlew.bat build --no-daemon
+        run: .\gradlew.bat build --no-daemon   # 注意前缀 .\
 
       - name: Upload mod jar to Release
         uses: softprops/action-gh-release@v2
