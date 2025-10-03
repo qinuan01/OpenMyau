@@ -44,29 +44,27 @@ public class BindCommand extends Command {
             }
         } else {
             int keyIndex = Keyboard.getKeyIndex(args.get(2).toUpperCase());
-            if (keyIndex != 0) {
-                int buttonIndex = Mouse.getButtonIndex(args.get(2).toUpperCase());
-                if (buttonIndex != -1) {
-                    keyIndex = buttonIndex - 100;
-                }
-                if (!args.get(1).equals("*")) {
-                    Module module = Myau.moduleManager.getModule(args.get(1));
-                    if (module == null) {
-                        ChatUtil.sendFormatted(String.format("%sModule not found (&o%s&r)&r", Myau.clientName, args.get(1)));
-                    } else {
-                        module.setKey(keyIndex);
-                        ChatUtil.sendFormatted(
-                                String.format("%sBound &o%s&r to &l[%s]&r", Myau.clientName, module.getName(), KeyBindUtil.getKeyName(keyIndex))
-                        );
-                    }
+            int buttonIndex = Mouse.getButtonIndex(args.get(2).toUpperCase());
+            if (buttonIndex != -1) {
+                keyIndex = buttonIndex - 100;
+            }
+            if (!args.get(1).equals("*")) {
+                Module module = Myau.moduleManager.getModule(args.get(1));
+                if (module == null) {
+                    ChatUtil.sendFormatted(String.format("%sModule not found (&o%s&r)&r", Myau.clientName, args.get(1)));
                 } else {
-                    for (Module module : Myau.moduleManager.modules.values()) {
-                        module.setKey(keyIndex);
-                    }
+                    module.setKey(keyIndex);
                     ChatUtil.sendFormatted(
-                            String.format("%sBound all modules to &l[%s]&r", Myau.clientName, KeyBindUtil.getKeyName(keyIndex))
+                            String.format("%sBound &o%s&r to &l[%s]&r", Myau.clientName, module.getName(), KeyBindUtil.getKeyName(keyIndex))
                     );
                 }
+            } else {
+                for (Module module : Myau.moduleManager.modules.values()) {
+                    module.setKey(keyIndex);
+                }
+                ChatUtil.sendFormatted(
+                        String.format("%sBound all modules to &l[%s]&r", Myau.clientName, KeyBindUtil.getKeyName(keyIndex))
+                );
             }
         }
     }
