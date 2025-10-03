@@ -152,11 +152,11 @@ public abstract class MixinMinecraft {
                     target = "Lnet/minecraft/entity/player/InventoryPlayer;changeCurrentItem(I)V"
             )
     )
-    private void changeCurrentItem(InventoryPlayer inventoryPlayer, int integer) {
-        SwapItemEvent event = new SwapItemEvent(-1, integer);
+    private void changeCurrentItem(InventoryPlayer inventoryPlayer, int slot) {
+        SwapItemEvent event = new SwapItemEvent(-1, slot);
         EventManager.call(event);
         if (!event.isCancelled()) {
-            inventoryPlayer.changeCurrentItem(integer);
+            inventoryPlayer.changeCurrentItem(slot);
         }
     }
 }

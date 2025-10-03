@@ -49,8 +49,8 @@ public class InvManager extends Module {
         }
     }
 
-    private void clickSlot(int integer1, int integer2, int integer3, int integer4) {
-        mc.playerController.windowClick(integer1, integer2, integer3, integer4, mc.thePlayer);
+    private void clickSlot(int windowId, int slotId, int mouseButtonClicked, int mode) {
+        mc.playerController.windowClick(windowId, slotId, mouseButtonClicked, mode, mc.thePlayer);
     }
 
     private int getStackSize(int slot) {
@@ -208,8 +208,8 @@ public class InvManager extends Module {
     }
 
     @Override
-    public void verifyValue(String string) {
-        switch (string) {
+    public void verifyValue(String mode) {
+        switch (mode) {
             case "min-delay":
                 if (this.minDelay.getValue() > this.maxDelay.getValue()) {
                     this.maxDelay.setValue(this.minDelay.getValue());

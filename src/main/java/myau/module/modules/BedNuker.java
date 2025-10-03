@@ -299,8 +299,8 @@ public class BedNuker extends Module {
         }
     }
 
-    private Color getProgressColor(int integer) {
-        switch (integer) {
+    private Color getProgressColor(int mode) {
+        switch (mode) {
             case 1:
                 float progress = this.calcProgress();
                 if (progress <= 0.5F) {
@@ -423,7 +423,7 @@ public class BedNuker extends Module {
                 }
             }
             if (this.targetBed == null) {
-                Myau.delayManager.stopDelay(false, DelayModules.BED_NUKER);
+                Myau.delayManager.setDelayState(false, DelayModules.BED_NUKER);
             }
         }
     }
@@ -623,7 +623,7 @@ public class BedNuker extends Module {
     public void onDisabled() {
         this.resetBreaking();
         this.savedSlot = -1;
-        Myau.delayManager.stopDelay(false, DelayModules.BED_NUKER);
+        Myau.delayManager.setDelayState(false, DelayModules.BED_NUKER);
     }
 
     @Override

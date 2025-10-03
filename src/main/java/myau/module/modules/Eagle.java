@@ -73,8 +73,8 @@ public class Eagle extends Module {
     }
 
     @Override
-    public void verifyValue(String string) {
-        switch (string) {
+    public void verifyValue(String name) {
+        switch (name) {
             case "min-delay":
                 if (this.minDelay.getValue() > this.maxDelay.getValue()) {
                     this.maxDelay.setValue(this.minDelay.getValue());

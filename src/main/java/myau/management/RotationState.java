@@ -56,9 +56,9 @@ public class RotationState {
         return RotationState.isRotated(0);
     }
 
-    public static boolean isRotated(int n) {
-        if (state < 0) return false;
-        return state <= n;
+    public static boolean isRotated(int state) {
+        if (RotationState.state < 0) return false;
+        return RotationState.state <= state;
     }
 
     public static float getPrevRenderYawOffset() {

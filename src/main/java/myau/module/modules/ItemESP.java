@@ -37,11 +37,11 @@ public class ItemESP extends Module {
     public final BooleanProperty goldd = new BooleanProperty("gold", true);
     public final BooleanProperty iron = new BooleanProperty("iron", true);
 
-    private boolean shouldHighlightItem(int integer) {
-        return this.emeralds.getValue() && this.isEmeraldItem(integer)
-                || this.diamonds.getValue() && this.isDiamondItem(integer)
-                || this.goldd.getValue() && this.isGoldItem(integer)
-                || this.iron.getValue() && this.isIronItem(integer);
+    private boolean shouldHighlightItem(int itemId) {
+        return this.emeralds.getValue() && this.isEmeraldItem(itemId)
+                || this.diamonds.getValue() && this.isDiamondItem(itemId)
+                || this.goldd.getValue() && this.isGoldItem(itemId)
+                || this.iron.getValue() && this.isIronItem(itemId);
     }
 
     private boolean isEmeraldItem(int itemId) {

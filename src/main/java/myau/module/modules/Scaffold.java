@@ -130,7 +130,7 @@ public class Scaffold extends Module {
                     for (int z = -4; z <= 4; z++) {
                         BlockPos pos = targetPos.add(x, y, z);
                         if (!BlockUtil.isReplaceable(pos)
-                                && !BlockUtil.isContainer(pos)
+                                && !BlockUtil.isInteractable(pos)
                                 && !(
                                 mc.thePlayer.getDistance((double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5)
                                         > (double) mc.playerController.getBlockReachDistance()
@@ -178,13 +178,13 @@ public class Scaffold extends Module {
         }
     }
 
-    private EnumFacing yawToFacing(float float1) {
-        if (float1 < -135.0F || float1 > 135.0F) {
+    private EnumFacing yawToFacing(float yaw) {
+        if (yaw < -135.0F || yaw > 135.0F) {
             return EnumFacing.NORTH;
-        } else if (float1 < -45.0F) {
+        } else if (yaw < -45.0F) {
             return EnumFacing.EAST;
         } else {
-            return float1 < 45.0F ? EnumFacing.SOUTH : EnumFacing.WEST;
+            return yaw < 45.0F ? EnumFacing.SOUTH : EnumFacing.WEST;
         }
     }
 
@@ -664,7 +664,7 @@ public class Scaffold extends Module {
                         Item item = stack.getItem();
                         if (item instanceof ItemBlock) {
                             Block block = ((ItemBlock) item).getBlock();
-                            if (!BlockUtil.isContainer(block) && BlockUtil.isStairs(block)) {
+                            if (!BlockUtil.isInteractable(block) && BlockUtil.isSolid(block)) {
                                 count += stack.stackSize;
                             }
                         }

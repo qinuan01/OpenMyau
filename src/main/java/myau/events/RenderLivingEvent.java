@@ -8,8 +8,8 @@ public class RenderLivingEvent implements Event {
     private final EventType type;
     private final EntityLivingBase entity;
 
-    public RenderLivingEvent(EventType u, EntityLivingBase entityLivingBase) {
-        this.type = u;
+    public RenderLivingEvent(EventType type, EntityLivingBase entityLivingBase) {
+        this.type = type;
         this.entity = entityLivingBase;
     }
 

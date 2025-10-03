@@ -5,8 +5,8 @@ import myau.event.events.Event;
 public class Render3DEvent implements Event {
     private final float partialTicks;
 
-    public Render3DEvent(float float1) {
-        this.partialTicks = float1;
+    public Render3DEvent(float partialTicks) {
+        this.partialTicks = partialTicks;
     }
 
     public float getPartialTicks() {

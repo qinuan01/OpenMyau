@@ -7,10 +7,10 @@ public class StrafeEvent implements Event {
     private float forward;
     private float friction;
 
-    public StrafeEvent(float float1, float float2, float float3) {
-        this.strafe = float1;
-        this.forward = float2;
-        this.friction = float3;
+    public StrafeEvent(float strafe, float forward, float friction) {
+        this.strafe = strafe;
+        this.forward = forward;
+        this.friction = friction;
     }
 
     public float getStrafe() {

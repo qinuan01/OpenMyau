@@ -49,8 +49,8 @@ public class ItemUtil {
 
     public static boolean isContainerBlock(ItemBlock itemBlock) {
         Block block = itemBlock.getBlock();
-        if (BlockUtil.isContainer(block)) return false;
-        return BlockUtil.isStairs(block);
+        if (BlockUtil.isInteractable(block)) return false;
+        return BlockUtil.isSolid(block);
     }
 
     public static double getAttackBonus(ItemStack itemStack) {

@@ -8,8 +8,8 @@ public class PacketEvent extends EventCancellable {
     private final EventType type;
     private final Packet<?> packet;
 
-    public PacketEvent(EventType u, Packet<?> packet) {
-        this.type = u;
+    public PacketEvent(EventType type, Packet<?> packet) {
+        this.type = type;
         this.packet = packet;
     }
 

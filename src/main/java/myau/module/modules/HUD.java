@@ -95,21 +95,21 @@ public class HUD extends Module {
         super("HUD", true, true);
     }
 
-    public Color getColor(long long1) {
-        return this.getColor(long1, 0L);
+    public Color getColor(long time) {
+        return this.getColor(time, 0L);
     }
 
-    public Color getColor(long long1, long long2) {
+    public Color getColor(long time, long offset) {
         Color color = Color.white;
         switch (this.colorMode.getValue()) {
             case 0:
-                color = ColorUtil.fromHSB(this.getColorCycle(long1, long2), 1.0F, 1.0F);
+                color = ColorUtil.fromHSB(this.getColorCycle(time, offset), 1.0F, 1.0F);
                 break;
             case 1:
-                color = ColorUtil.fromHSB(this.getColorCycle(long1 / 3L, 0L), 1.0F, 1.0F);
+                color = ColorUtil.fromHSB(this.getColorCycle(time / 3L, 0L), 1.0F, 1.0F);
                 break;
             case 2:
-                float cycle = this.getColorCycle(long1, long2);
+                float cycle = this.getColorCycle(time, offset);
                 if (cycle % 1.0F < 0.5F) {
                     cycle = 1.0F - cycle % 1.0F;
                 }
@@ -119,7 +119,7 @@ public class HUD extends Module {
                 color = new Color(this.custom1.getValue());
                 break;
             case 4:
-                double cycle1 = this.getColorCycle(long1, long2);
+                double cycle1 = this.getColorCycle(time, offset);
                 color = ColorUtil.interpolate(
                         (float) (2.0 * Math.abs(cycle1 - Math.floor(cycle1 + 0.5))),
                         new Color(this.custom1.getValue()),
@@ -127,7 +127,7 @@ public class HUD extends Module {
                 );
                 break;
             case 5:
-                double cycle2 = this.getColorCycle(long1, long2);
+                double cycle2 = this.getColorCycle(time, offset);
                 float floor = (float) (2.0 * Math.abs(cycle2 - Math.floor(cycle2 + 0.5)));
                 if (floor <= 0.5F) {
                     color = ColorUtil.interpolate(floor * 2.0F, new Color(this.custom1.getValue()), new Color(this.custom2.getValue()));

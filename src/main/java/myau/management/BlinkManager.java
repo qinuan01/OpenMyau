@@ -5,6 +5,7 @@ import myau.event.EventTarget;
 import myau.event.types.EventType;
 import myau.events.PacketEvent;
 import myau.events.TickEvent;
+import myau.util.PacketUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.Packet;
 import net.minecraft.network.handshake.client.C00Handshake;
@@ -23,7 +24,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 public class BlinkManager {
     public static Minecraft mc = Minecraft.getMinecraft();
     public BlinkModules blinkModule = BlinkModules.NONE;
-    public boolean pass = false;
+    public boolean blinking = false;
     public Deque<Packet<?>> blinkedPackets = new ConcurrentLinkedDeque<>();
 
     public boolean offerPacket(Packet<?> packet) {
@@ -41,25 +42,21 @@ public class BlinkManager {
         if (module == BlinkModules.NONE) {
             return false;
         }
-        if (this.blinkModule != module) {
-            return false;
-        }
         if (state) {
             this.blinkModule = module;
-            this.pass = false;
+            this.blinking = true;
         } else {
+            if(blinkModule != module){
+                return false;
+            }
+            this.blinking = false;
             if (Minecraft.getMinecraft().getNetHandler() != null && this.blinkedPackets.isEmpty()) {
                 return true;
             }
-            while (true) {
-                Packet<?> packet = this.blinkedPackets.poll();
-                if (packet == null) {
-                    this.blinkedPackets.clear();
-                    break;
-                }
-                Minecraft.getMinecraft().getNetHandler().getNetworkManager().sendPacket(packet, null);
+            for (Packet<?> blinkedPacket : blinkedPackets) {
+                PacketUtil.sendPacket(blinkedPacket);
             }
-            this.pass = true;
+            blinkedPackets.clear();
         }
         return true;
     }
@@ -72,8 +69,8 @@ public class BlinkManager {
         return this.blinkedPackets.stream().filter(packet -> packet instanceof C03PacketPlayer).count();
     }
 
-    public boolean canSendPacket() {
-        return this.pass;
+    public boolean isBlinking() {
+        return blinking;
     }
 
     @EventTarget

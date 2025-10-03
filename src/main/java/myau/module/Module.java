@@ -6,9 +6,9 @@ import myau.util.KeyBindUtil;
 
 public abstract class Module {
     protected final String name;
-    protected final boolean r;
-    protected final int z;
-    protected final boolean u;
+    protected final boolean defaultEnabled;
+    protected final int defaultKey;
+    protected final boolean defaultHidden;
     protected boolean enabled;
     protected int key;
     protected boolean hidden;
@@ -19,9 +19,9 @@ public abstract class Module {
 
     public Module(String name, boolean enabled, boolean hidden) {
         this.name = name;
-        this.enabled = this.r = enabled;
-        this.key = this.z = 0;
-        this.hidden = this.u = hidden;
+        this.enabled = this.defaultEnabled = enabled;
+        this.key = this.defaultKey = 0;
+        this.hidden = this.defaultHidden = hidden;
     }
 
     public String getName() {

@@ -108,7 +108,7 @@ public class NoSlow extends Module {
                 switch (mc.objectMouseOver.typeOfHit) {
                     case BLOCK:
                         BlockPos blockPos = mc.objectMouseOver.getBlockPos();
-                        if (BlockUtil.isContainer(blockPos) && !PlayerUtil.isSneaking()) {
+                        if (BlockUtil.isInteractable(blockPos) && !PlayerUtil.isSneaking()) {
                             return;
                         }
                         break;

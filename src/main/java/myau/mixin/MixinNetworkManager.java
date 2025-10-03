@@ -53,8 +53,8 @@ public abstract class MixinNetworkManager {
                 callbackInfo.cancel();
             } else if (Myau.playerStateManager != null && Myau.blinkManager != null && Myau.lagManager != null) {
                 if (!Myau.lagManager.isFlushing()) {
-                    if (!Myau.blinkManager.canSendPacket()) {
-                        Myau.playerStateManager.handlePacket(packet);
+                    Myau.playerStateManager.handlePacket(packet);
+                    if (Myau.blinkManager.isBlinking()) {
                         if (Myau.blinkManager.offerPacket(packet)) {
                             callbackInfo.cancel();
                             return;
@@ -82,8 +82,8 @@ public abstract class MixinNetworkManager {
         if (!packet.getClass().getName().startsWith("net.minecraft.network.play.server")) {
             if (Myau.playerStateManager != null && Myau.blinkManager != null && Myau.lagManager != null) {
                 if (!Myau.lagManager.isFlushing()) {
-                    if (!Myau.blinkManager.canSendPacket()) {
-                        Myau.playerStateManager.handlePacket(packet);
+                    Myau.playerStateManager.handlePacket(packet);
+                    if (Myau.blinkManager.isBlinking()) {
                         if (Myau.blinkManager.offerPacket(packet)) {
                             callbackInfo.cancel();
                             return;

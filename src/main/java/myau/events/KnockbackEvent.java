@@ -7,18 +7,18 @@ public class KnockbackEvent extends EventCancellable {
     private double y;
     private double z;
 
-    public KnockbackEvent(double double1, double double2, double double3) {
-        this.x = double1;
-        this.y = double2;
-        this.z = double3;
+    public KnockbackEvent(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public double getX() {
         return this.x;
     }
 
-    public void setX(double double1) {
-        this.x = double1;
+    public void setX(double x) {
+        this.x = x;
         this.setCancelled(true);
     }
 
@@ -26,8 +26,8 @@ public class KnockbackEvent extends EventCancellable {
         return this.y;
     }
 
-    public void setY(double double1) {
-        this.y = double1;
+    public void setY(double y) {
+        this.y = y;
         this.setCancelled(true);
     }
 
@@ -35,8 +35,8 @@ public class KnockbackEvent extends EventCancellable {
         return this.z;
     }
 
-    public void setZ(double double1) {
-        this.z = double1;
+    public void setZ(double z) {
+        this.z = z;
         this.setCancelled(true);
     }
 }

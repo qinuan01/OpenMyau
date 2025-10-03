@@ -77,8 +77,8 @@ public class LagManager {
         }
     }
 
-    public void setDelay(int integer) {
-        this.tickDelay = integer;
+    public void setDelay(int delay) {
+        this.tickDelay = delay;
     }
 
     public Vec3 getLastPosition() {

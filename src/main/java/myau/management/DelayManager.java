@@ -44,13 +44,13 @@ public class DelayManager {
             this.delayedPacket.offer(packet);
             return true;
         } else {
-            this.stopDelay(false, this.delayModule);
+            this.setDelayState(false, this.delayModule);
             return false;
         }
     }
 
-    public boolean stopDelay(boolean set, DelayModules delayModule) {
-        if (set) {
+    public boolean setDelayState(boolean state, DelayModules delayModule) {
+        if (state) {
             this.delayModule = delayModule;
         } else {
             this.delayModule = DelayModules.NONE;
@@ -88,7 +88,7 @@ public class DelayManager {
                 || event.getPacket() instanceof C00PacketServerQuery
                 || event.getPacket() instanceof C01PacketPing
                 || event.getPacket() instanceof C01PacketEncryptionResponse) {
-            this.stopDelay(false, this.delayModule);
+            this.setDelayState(false, this.delayModule);
         }
     }
 
@@ -96,7 +96,7 @@ public class DelayManager {
     public void onTick(TickEvent event) {
         if (event.getType() == EventType.POST) {
             if (mc.thePlayer.isDead) {
-                this.stopDelay(false, this.delayModule);
+                this.setDelayState(false, this.delayModule);
             }
             if (this.delayModule != DelayModules.NONE) {
                 this.delay++;

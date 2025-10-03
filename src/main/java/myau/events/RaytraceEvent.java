@@ -5,15 +5,15 @@ import myau.event.events.Event;
 public class RaytraceEvent implements Event {
     private double range;
 
-    public RaytraceEvent(double double1) {
-        this.range = double1;
+    public RaytraceEvent(double range) {
+        this.range = range;
     }
 
     public double getRange() {
         return this.range;
     }
 
-    public void setRange(double double1) {
-        this.range = double1;
+    public void setRange(double range) {
+        this.range = range;
     }
 }

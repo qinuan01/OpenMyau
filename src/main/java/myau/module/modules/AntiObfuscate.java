@@ -7,7 +7,7 @@ public class AntiObfuscate extends Module {
         super("AntiObfuscate", false, true);
     }
 
-    public String stripObfuscated(String string) {
-        return string.replaceAll("§k", "");
+    public String stripObfuscated(String input) {
+        return input.replaceAll("§k", "");
     }
 }

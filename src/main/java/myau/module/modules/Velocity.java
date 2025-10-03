@@ -106,7 +106,7 @@ public class Velocity extends Module {
                             || this.isInLiquidOrWeb()
                             || Myau.delayManager.isDelay() >= (long) this.delayTicks.getValue()
             )) {
-                Myau.delayManager.stopDelay(false, DelayModules.VELOCITY);
+                Myau.delayManager.setDelayState(false, DelayModules.VELOCITY);
                 this.reverseFlag = false;
             }
             if (this.delayActive) {
@@ -142,7 +142,7 @@ public class Velocity extends Module {
                             && (!longJump.isEnabled() || !longJump.canStartJump())) {
                         this.delayChanceCounter = this.delayChanceCounter % 100 + this.delayChance.getValue();
                         if (this.delayChanceCounter >= 100) {
-                            Myau.delayManager.stopDelay(true, DelayModules.VELOCITY);
+                            Myau.delayManager.setDelayState(true, DelayModules.VELOCITY);
                             Myau.delayManager.delayedPacket.offer(packet);
                             event.setCancelled(true);
                             this.reverseFlag = true;

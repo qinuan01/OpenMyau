@@ -29,8 +29,8 @@ public class FloatManager {
         return this.activeMap.containsValue(true);
     }
 
-    public void setFloatState(boolean boolean1, FloatModules mY) {
-        this.activeMap.put(mY, boolean1);
+    public void setFloatState(boolean state, FloatModules floatModules) {
+        this.activeMap.put(floatModules, state);
     }
 
     @EventTarget

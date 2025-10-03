@@ -82,11 +82,11 @@ public class TargetStrafe extends Module {
         );
     }
 
-    private int wrapIndex(int integer1, int integer2) {
-        if (integer1 < 0) {
-            return integer2 - 1;
+    private int wrapIndex(int index, int size) {
+        if (index < 0) {
+            return size - 1;
         } else {
-            return integer1 >= integer2 ? 0 : integer1;
+            return index >= size ? 0 : index;
         }
     }
 

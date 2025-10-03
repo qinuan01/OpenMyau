@@ -21,11 +21,11 @@ public class BlockUtil {
         return !(block.getBlockBoundsMaxY() > 0.125);
     }
 
-    public static boolean isContainer(BlockPos blockPos) {
-        return BlockUtil.isContainer(BlockUtil.mc.theWorld.getBlockState(blockPos).getBlock());
+    public static boolean isInteractable(BlockPos blockPos) {
+        return BlockUtil.isInteractable(BlockUtil.mc.theWorld.getBlockState(blockPos).getBlock());
     }
 
-    public static boolean isContainer(Block block) {
+    public static boolean isInteractable(Block block) {
         if (block instanceof BlockContainer) return true;
         if (block instanceof BlockWorkbench) return true;
         if (block instanceof BlockAnvil) return true;
@@ -41,7 +41,7 @@ public class BlockUtil {
         return block instanceof BlockJukebox;
     }
 
-    public static boolean isStairs(Block block) {
+    public static boolean isSolid(Block block) {
         if (block instanceof BlockStairs) return false;
         if (block instanceof BlockSlab) return false;
         if (block instanceof BlockEndPortalFrame) return false;

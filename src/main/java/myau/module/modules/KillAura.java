@@ -920,22 +920,22 @@ public class KillAura extends Module {
     }
 
     @Override
-    public void verifyValue(String string) {
-        if (!this.autoBlock.getName().equals(string) && !this.autoBlockCPS.getName().equals(string)) {
-            if (this.swingRange.getName().equals(string)) {
+    public void verifyValue(String mode) {
+        if (!this.autoBlock.getName().equals(mode) && !this.autoBlockCPS.getName().equals(mode)) {
+            if (this.swingRange.getName().equals(mode)) {
                 if (this.swingRange.getValue() < this.attackRange.getValue()) {
                     this.attackRange.setValue(this.swingRange.getValue());
                 }
-            } else if (this.attackRange.getName().equals(string)) {
+            } else if (this.attackRange.getName().equals(mode)) {
                 if (this.swingRange.getValue() < this.attackRange.getValue()) {
                     this.swingRange.setValue(this.attackRange.getValue());
                 }
-            } else if (this.minCPS.getName().equals(string)) {
+            } else if (this.minCPS.getName().equals(mode)) {
                 if (this.minCPS.getValue() > this.maxCPS.getValue()) {
                     this.maxCPS.setValue(this.minCPS.getValue());
                 }
             } else {
-                if (this.maxCPS.getName().equals(string) && this.minCPS.getValue() > this.maxCPS.getValue()) {
+                if (this.maxCPS.getName().equals(mode) && this.minCPS.getValue() > this.maxCPS.getValue()) {
                     this.minCPS.setValue(this.maxCPS.getValue());
                 }
             }

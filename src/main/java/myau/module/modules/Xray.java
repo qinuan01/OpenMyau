@@ -316,7 +316,7 @@ public class Xray extends Module {
     }
 
     @Override
-    public void verifyValue(String string) {
+    public void verifyValue(String mode) {
         this.trackedBlocks.clear();
         this.pendingBlocks.clear();
         if (this.isEnabled() && mc.renderGlobal != null) {

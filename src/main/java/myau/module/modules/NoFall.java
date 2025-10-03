@@ -133,7 +133,7 @@ public class NoFall extends Module {
     }
 
     @Override
-    public void verifyValue(String string) {
+    public void verifyValue(String mode) {
         if (this.isEnabled()) {
             this.onDisabled();
         }
