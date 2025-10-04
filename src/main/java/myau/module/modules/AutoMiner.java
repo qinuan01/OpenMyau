@@ -6,8 +6,9 @@ import myau.event.types.EventType;
 import myau.events.TickEvent;
 import myau.module.Module;
 import myau.property.properties.BooleanProperty;
-import net.minecraft.client.Minecraft; // 新增：导入 Minecraft 类
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayerSP;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -15,9 +16,7 @@ import net.minecraft.util.MovingObjectPosition;
 
 public class AutoMiner extends Module {
 
-    // 新增：获取 Minecraft 实例，这是解决所有 "cannot find symbol: mc" 错误的关键
     private final Minecraft mc = Minecraft.getMinecraft();
-
     public final BooleanProperty turnFromBedrock = new BooleanProperty("Turn From Bedrock", true);
 
     public AutoMiner() {
@@ -27,15 +26,15 @@ public class AutoMiner extends Module {
     @Override
     public void onEnabled() {
         super.onEnabled();
-        // 修正：通过 Myau.INSTANCE 访问 eventManager
-        Myau.INSTANCE.eventManager.register(this);
+        // 修正：请将下面的 "你的事件管理器变量名" 替换成你在 Myau.java 文件中找到的真实变量名
+        Myau.你的事件管理器变量名.register(this);
     }
 
     @Override
     public void onDisabled() {
         super.onDisabled();
-        // 修正：通过 Myau.INSTANCE 访问 eventManager
-        Myau.INSTANCE.eventManager.unregister(this);
+        // 修正：请将下面的 "你的事件管理器变量名" 替换成你在 Myau.java 文件中找到的真实变量名
+        Myau.你的事件管理器变量名.unregister(this);
 
         if (mc.gameSettings != null) {
             KeyBinding.setKeyBindState(mc.gameSettings.keyBindForward.getKeyCode(), false);
@@ -60,13 +59,13 @@ public class AutoMiner extends Module {
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindForward.getKeyCode(), true);
 
         MovingObjectPosition objectMouseOver = mc.objectMouseOver;
-        if (objectMouseOver == null || objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
+        if (objectMouseOver == null || objectMouseOver.typeOfHit != Moving_Object_Position.Moving_ObjectType.BLOCK) {
             return;
         }
 
         BlockPos targetPos = objectMouseOver.getBlockPos();
-        
-        if (mc.theWorld.getBlockState(targetPos).getBlock() == Blocks.bedrock) {
+
+        if (mc.the_World.getBlockState(targetPos).getBlock() == Blocks.bedrock) {
             if (turnFromBedrock.getValue()) {
                 turnAway();
             }
@@ -78,24 +77,26 @@ public class AutoMiner extends Module {
     }
 
     private void turnAway() {
-        EnumFacing facing = mc.thePlayer.getHorizontalFacing();
-        float targetYaw = mc.thePlayer.rotationYaw;
+        EntityPlayerSP player = mc.thePlayer;
+        EnumFacing facing = player.getHorizontalFacing();
+        float targetYaw = player.rotationYaw;
 
-        // 修正：使用更可靠的 switch 语句进行转向，避免方法找不到的错误
         switch (facing) {
-            case NORTH: // 当前朝向北 (-180 或 180)，向右转到东 (-90)
-                targetYaw = -90.0f;
+            case NORTH:
+                targetYaw = -90.0f; // East
                 break;
-            case EAST:  // 当前朝向东 (-90)，向右转到南 (0)
-                targetYaw = 0.0f;
+            case EAST:
+                targetYaw = 0.0f;   // South
                 break;
-            case SOUTH: // 当前朝向南 (0)，向右转到西 (90)
-                targetYaw = 90.0f;
+            case SOUTH:
+                targetYaw = 90.0f;  // West
                 break;
-            case WEST:  // 当前朝向西 (90)，向右转到北 (180)
-                targetYaw = 180.0f;
+            case WEST:
+                targetYaw = 180.0f; // North
                 break;
         }
-        mc.thePlayer.setRotationYaw(targetYaw);
+        
+        // 修正：在1.8.9版本中，直接给 rotationYaw 属性赋值，而不是调用 setRotationYaw() 方法
+        player.rotationYaw = targetYaw;
     }
 }
